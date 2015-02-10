@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewTweetView">
+            <connections>
+                <outlet property="nameLabel" destination="Dq4-tm-pfn" id="6py-oP-afp"/>
+                <outlet property="profileImage" destination="1bA-6W-Lkw" id="Sbe-ME-1p4"/>
+                <outlet property="textView" destination="qI0-aA-TEw" id="9fq-Hm-e51"/>
+                <outlet property="usernameLabel" destination="XFq-vb-NNA" id="dfq-3U-5C0"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1bA-6W-Lkw">
+                    <rect key="frame" x="8" y="8" width="73" height="73"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="73" id="UIO-fx-pYh"/>
+                        <constraint firstAttribute="width" constant="73" id="l85-RK-z7S"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Michael Moran" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dq4-tm-pfn">
+                    <rect key="frame" x="89" y="13" width="98" height="17"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="@TheMichaleMoran" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFq-vb-NNA">
+                    <rect key="frame" x="89" y="33" width="112" height="15"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qI0-aA-TEw">
+                    <rect key="frame" x="8" y="89" width="304" height="250"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="250" id="C1o-Y1-3Ow"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="1bA-6W-Lkw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="1aH-Fx-y6a"/>
+                <constraint firstItem="Dq4-tm-pfn" firstAttribute="top" secondItem="1bA-6W-Lkw" secondAttribute="top" constant="5" id="3gL-j5-bXg"/>
+                <constraint firstItem="Dq4-tm-pfn" firstAttribute="leading" secondItem="XFq-vb-NNA" secondAttribute="leading" id="Dhc-cG-hIG"/>
+                <constraint firstItem="Dq4-tm-pfn" firstAttribute="leading" secondItem="1bA-6W-Lkw" secondAttribute="trailing" constant="8" id="Fp7-Xt-6y0"/>
+                <constraint firstItem="qI0-aA-TEw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="cyy-ot-CsO"/>
+                <constraint firstItem="XFq-vb-NNA" firstAttribute="top" secondItem="Dq4-tm-pfn" secondAttribute="bottom" constant="3" id="i4W-9J-QiE"/>
+                <constraint firstAttribute="trailing" secondItem="qI0-aA-TEw" secondAttribute="trailing" constant="8" id="nPj-GE-81Y"/>
+                <constraint firstItem="1bA-6W-Lkw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="qnO-UM-mGY"/>
+                <constraint firstItem="qI0-aA-TEw" firstAttribute="top" secondItem="1bA-6W-Lkw" secondAttribute="bottom" constant="8" id="xm7-Jb-wiQ"/>
+            </constraints>
+            <point key="canvasLocation" x="422" y="380"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
