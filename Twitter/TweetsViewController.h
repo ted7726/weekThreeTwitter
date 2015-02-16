@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *tweets;
+//@property (nonatomic, strong) NSMutableArray *tweets;
 
 @end
+
+static NSMutableArray *currentTweets;

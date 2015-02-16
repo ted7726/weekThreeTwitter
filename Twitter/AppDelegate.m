@@ -23,22 +23,32 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    UIViewController *vc;
+    UINavigationController *nvc;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:UserDidLogoutNotification object:nil];
     
     
+    TweetsViewController *tweetsVC = [[TweetsViewController alloc]init];
+    LoginViewController *loginVC = [[LoginViewController alloc]init];
+    nvc = [[UINavigationController alloc]initWithRootViewController:tweetsVC];
+    nvc.navigationBar.barStyle = UIBarStyleBlack;
+    //R93 G183 B248
+    nvc.navigationBar.barTintColor = [UIColor colorWithRed:93/255.0f green:183/255.0f blue:248/255.0f alpha:1.0f];;
+    
+    nvc.navigationBar.translucent = NO;
+    
+    
     
     User *user = [User currentUser];
-    if (user != nil){
+    if (user){
         NSLog(@"Welcome to %@", user.name);
-        vc = [[TweetsViewController alloc] init];
     }else{
         NSLog(@"Not Logged in");
-        vc = [[LoginViewController alloc] init];
+        [nvc pushViewController:loginVC animated:NO];
+        nvc.navigationBar.hidden = true;
     }
-    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController: vc];
+    self.window.rootViewController = nvc;
     [self.window makeKeyAndVisible];
    
     return YES;

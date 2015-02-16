@@ -38,7 +38,6 @@
     [formatter setDateFormat:@"MM/dd/yyyy, HH:mm"];
     self.createdAtLabel.text = [formatter stringFromDate:_tweet.createdAt];
     
-    
     if(_tweet.retweet){
         [self.retweetImage setImage:[UIImage imageNamed:@"retweet.png"]];
         self.retweetLabel.text = [NSString stringWithFormat:@"%@ retweeted",_tweet.retweetUser.name];
@@ -54,24 +53,12 @@
     }
     
     [self.replyButton setImage:[UIImage imageNamed:@"reply.png"] forState:UIControlStateNormal];
-    if(_retweeted){
-        [self.retweetButton setImage:[UIImage imageNamed:@"retweet.png"] forState:UIControlStateNormal];
-    }else{
-        [self.retweetButton setImage:[UIImage imageNamed:@"retweet_on.png"] forState:UIControlStateNormal];
-    }
     
-    if(_favorited){
-        [self.favoriteButton setImage:[UIImage imageNamed:@"favorite.png"] forState:UIControlStateNormal];
-    }else{
-        [self.favoriteButton setImage:[UIImage imageNamed:@"favorite_on.png"] forState:UIControlStateNormal];
-    }
+    [self.retweetButton setImage:[UIImage imageNamed:(_tweet.retweeted ? @"retweet_on.png" : @"retweet.png")] forState:UIControlStateNormal];
+    [self.favoriteButton setImage:[UIImage imageNamed:(_tweet.favorited ? @"favorite_on.png" : @"favorite.png")] forState:UIControlStateNormal];
     
 }
 
-
-- (void)singleTapGestureCaptured{
-    NSLog(@"tap on the image!");
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -87,57 +74,21 @@
 }
 
 - (IBAction)retweetButton:(id)sender {
-    NSLog(@"retweet!");
-    if(_retweeted){
-        [self.retweetButton setImage:[UIImage imageNamed:@"retweet.png"] forState:UIControlStateNormal];
-        [[TwitterClient sharedInstance] destroyWithId:self.tweet.id_str success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"successfully destroy retweet");
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Fail to destroy retweet");
-        }];
-    }else{
-        [self.retweetButton setImage:[UIImage imageNamed:@"retweet_on.png"] forState:UIControlStateNormal];
-        [[TwitterClient sharedInstance] retweetWithId:self.tweet.id_str success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"successfully retweet");
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"fail to retweet");
-        }];
-    }
-    _retweeted = !_retweeted;
-    [self viewDidLoad];
+    [self.retweetButton setImage:[UIImage imageNamed:(_tweet.retweeted ? @"retweet.png" : @"retweet_on.png")] forState:UIControlStateNormal];
+    [_tweet toggleRetweet:nil completion:^(NSString *retweetCount, NSError *error) {
+        if(retweetCount){
+            self.noRetweetsLabel.text = retweetCount;
+        }
+    }];
+    
 }
 - (IBAction)favoriteButton:(id)sender {
-    NSLog(@"favorite!");
-    if(_favorited){
-        [self.favoriteButton setImage:[UIImage imageNamed:@"favorite.png"] forState:UIControlStateNormal];
-        [[TwitterClient sharedInstance] removeFavoriteWithId:self.tweet.id_str success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"successfully remove");
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"fail to remove");
-        }];
-    }else{
-        [self.favoriteButton setImage:[UIImage imageNamed:@"favorite_on.png"] forState:UIControlStateNormal];
-        
-        [[TwitterClient sharedInstance] favoriteWithId:self.tweet.id_str success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"successfully favorite");
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"fail to favorite");
-        }];
-        
-    }
-    _favorited = !_favorited;
-    [self viewDidLoad];
+    [self.favoriteButton setImage:[UIImage imageNamed:(_tweet.favorited ? @"favorite.png" : @"favorite_on.png")] forState:UIControlStateNormal];
+    [_tweet toggleFavorite:nil completion:^(NSString *favoriteCount, NSError *error) {
+        if (favoriteCount){
+            self.noFavoritesLabel.text = favoriteCount;
+        }
+    }];
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

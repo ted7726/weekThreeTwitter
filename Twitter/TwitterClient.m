@@ -91,30 +91,24 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
     return [self POST:@"1.1/statuses/update.json" parameters:parameters success:success failure:failure];
 }
 
-- (AFHTTPRequestOperation *)retweetWithId:(NSString *)tweetId
-                                  success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
-                                  failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
-    return [self POST:[NSString stringWithFormat:@"1.1/statuses/retweet/%@.json", tweetId] parameters:nil success:success failure:failure];
+- (AFHTTPRequestOperation *)toggleRetweetWithId:(NSString *)tweetId
+                                      retweeted:(BOOL)retweeted
+                                        success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                        failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString * url = [NSString stringWithFormat:@"%@%@%@%@",@"1.1/statuses/",(retweeted ? @"destroy/":@"retweet/"),tweetId,@".json"];
+    NSLog(@"%@",url);
+    return [self POST:url parameters:nil success:success failure:failure];
 }
-
-- (AFHTTPRequestOperation *)destroyWithId:(NSString *)tweetId
-                                  success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
-                                  failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
-    return [self POST:[NSString stringWithFormat:@"1.1/statuses/destroy/%@.json", tweetId] parameters:nil success:success failure:failure];
-}
-
-- (AFHTTPRequestOperation *)favoriteWithId:(NSString *)tweetId
-                                   success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
-                                   failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSDictionary *parameters = @{@"id": tweetId};
-    return [self POST:@"1.1/favorites/create.json" parameters:parameters success:success failure:failure];
-}
-
-- (AFHTTPRequestOperation *)removeFavoriteWithId:(NSString *)tweetId
+- (AFHTTPRequestOperation *)toggleFavoriteWithId:(NSString *)tweetId
+                                       favorited:(BOOL)favorited
                                          success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                          failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSString * endPoint = [NSString stringWithFormat:@"%@%@%@",@"1.1/favorites/",(favorited ? @"destroy":@"create"),@".json"];
     NSDictionary *parameters = @{@"id": tweetId};
-    return [self POST:@"1.1/favorites/destroy.json" parameters:parameters success:success failure:failure];
+    return [self POST:endPoint parameters:parameters success:success failure:failure];
 }
+
+
+
 
 @end

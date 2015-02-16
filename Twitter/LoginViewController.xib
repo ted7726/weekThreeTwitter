@@ -14,8 +14,16 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="880-V2-Oxw">
-                    <rect key="frame" x="100" y="83" width="121" height="30"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitterIcon.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Xfz-9o-nkt">
+                    <rect key="frame" x="120" y="254" width="80" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="b1F-mL-UjN"/>
+                        <constraint firstAttribute="width" constant="80" id="iZu-1J-B9x"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="880-V2-Oxw">
+                    <rect key="frame" x="84" y="216" width="154" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="Login with Twitter">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -26,12 +34,17 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="centerY" secondItem="880-V2-Oxw" secondAttribute="centerY" constant="50" id="2lS-PJ-rMj"/>
                 <constraint firstAttribute="centerX" secondItem="880-V2-Oxw" secondAttribute="centerX" id="62M-Sh-4nk"/>
-                <constraint firstItem="880-V2-Oxw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="83" id="Szu-JA-XJr"/>
+                <constraint firstAttribute="centerY" secondItem="Xfz-9o-nkt" secondAttribute="centerY" constant="-10" id="Lne-55-iJW"/>
+                <constraint firstAttribute="centerX" secondItem="Xfz-9o-nkt" secondAttribute="centerX" id="y5W-r6-JR3"/>
             </constraints>
             <point key="canvasLocation" x="413" y="380"/>
         </view>
     </objects>
+    <resources>
+        <image name="twitterIcon.jpg" width="300" height="300"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -19,9 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
-@property (nonatomic,assign) BOOL retweeted;
-@property (nonatomic,assign) BOOL favorited;
-
 
 @property (nonatomic, strong) Tweet *tweet;
 

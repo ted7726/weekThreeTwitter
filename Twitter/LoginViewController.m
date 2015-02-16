@@ -17,13 +17,16 @@
 @implementation LoginViewController
 - (IBAction)onLogin:(id)sender {
     [[TwitterClient sharedInstance]loginWithCompetion:^(User *user, NSError *error) {
-        if(user!=nil){
+        if(user){
             // if successfully
             NSLog(@"Welcome to %@", user.name);
             
-            [self presentViewController:[[TweetsViewController alloc]init] animated:YES completion:nil];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            self.navigationController.navigationBar.hidden = false;
+            
         }else{
             // if error
+            NSLog(@"login failed!");
             
         }
     }];

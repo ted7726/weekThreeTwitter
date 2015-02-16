@@ -22,20 +22,14 @@
                                      success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                      failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
 
-- (AFHTTPRequestOperation *)retweetWithId:(NSString *)tweetId
-                                  success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
-                                  failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
 
-- (AFHTTPRequestOperation *)destroyWithId:(NSString *)tweetId
-                                  success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
-                                  failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
+- (AFHTTPRequestOperation *)toggleRetweetWithId:(NSString *)tweetId
+                                      retweeted:(BOOL)retweeted
+                                        success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                        failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
 
-- (AFHTTPRequestOperation *)favoriteWithId:(NSString *)tweetId
-                                   success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
-                                   failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
-
-- (AFHTTPRequestOperation *)removeFavoriteWithId:(NSString *)tweetId
+- (AFHTTPRequestOperation *)toggleFavoriteWithId:(NSString *)tweetId
+                                       favorited:(BOOL)favorited
                                          success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                          failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
-
 @end

@@ -27,6 +27,8 @@
 //        
 //    }];
     
+    currentTweets = [[NSMutableArray alloc]init];
+    
     /* setup Table View */
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -44,18 +46,16 @@
     
     /* setup navigation Buttons */
     self.navigationItem.leftBarButtonItem =[[UIBarButtonItem alloc]initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onLogout)];
-    self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc]initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self action:@selector(onNewTweet)];
+    
+
+    self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"write.png"] style:UIBarButtonItemStylePlain target:self action:@selector(onNewTweet)];
     
     self.navigationItem.leftBarButtonItem.tintColor=[UIColor whiteColor];
     self.navigationItem.rightBarButtonItem.tintColor=[UIColor whiteColor];
     
     /* setup navigation Bar */
     self.title = @"Home";
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    
-    //R93 G183 B248
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:93/255.0f green:183/255.0f blue:248/255.0f alpha:1.0f];;
-    self.navigationController.navigationBar.translucent = NO;
+
 
 }
 
@@ -65,25 +65,48 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.tweets.count;
+    if(currentTweets){
+        return currentTweets.count;
+    }else{
+        return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TweetsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetsCell"];
-    cell.tweet = self.tweets[indexPath.row];
+    cell.tweet = currentTweets[indexPath.row];
+    
+    if(currentTweets.count-2<indexPath.row){
+        NSDictionary *parameters = @{@"count": @(currentTweets.count+20)};
+        [[TwitterClient sharedInstance] homeTimelineWithParams:parameters completion:^(NSArray *tweets, NSError *error) {
+            [currentTweets removeAllObjects];
+            currentTweets = [tweets mutableCopy];
+            [self.tableView reloadData];
+            [self.refreshControl endRefreshing];
+        }];
+    }
+    
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TweetDetailView *vc = [[TweetDetailView alloc]init];
-    Tweet *tweet = self.tweets[indexPath.row];
+    Tweet *tweet = currentTweets[indexPath.row];
     vc.tweet = tweet;
-    vc.favorited = tweet.favorited;
-    vc.retweeted = tweet.retweeted;
     [self.navigationController pushViewController:vc animated:YES];
     
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentYoffset = scrollView.contentOffset.y;
+    CGFloat distanceFromBottom = scrollView.contentSize.height - contentYoffset;
+    CGFloat preLoadDistance = 10;
+    
+    if(distanceFromBottom+preLoadDistance < height){
+//        NSLog(@"end of the table");
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -93,7 +116,11 @@
 
 - (void)onLogout{
     [User logout];
-    [self presentViewController:[[LoginViewController alloc] init] animated:YES completion:nil];
+    //[currentTweets removeAllObjects];
+    self.navigationController.navigationBar.hidden = true;
+    [self.navigationController pushViewController:[[LoginViewController alloc]init] animated:YES];
+    
+    
 }
 
 - (void) onNewTweet{
@@ -104,7 +131,8 @@
 
 - (void) onRefresh{
     [[TwitterClient sharedInstance] homeTimelineWithParams:nil completion:^(NSArray *tweets, NSError *error) {
-        self.tweets = [tweets mutableCopy];
+        [currentTweets removeAllObjects];
+        currentTweets = [tweets mutableCopy];
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
     }];

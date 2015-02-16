@@ -10,7 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "TwitterClient.h"
 
-@interface NewTweetView ()
+@interface NewTweetView ()<UITextViewDelegate>
 
 @end
 
@@ -22,12 +22,15 @@
     // Do any additional setup after loading the view from its nib.
     
 //    self.navigationItem.leftBarButtonItem =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:nil];
-//    
     
-    self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc]initWithTitle:@"Tweet" style:UIBarButtonItemStylePlain target:self action:@selector(onTweetButton)];
+    
+//
+    self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc]initWithTitle:(_newOrReply?@"Tweet":@"Reply") style:UIBarButtonItemStylePlain target:self action:@selector(onTweetButton)];
     self.navigationItem.leftBarButtonItem.tintColor=[UIColor whiteColor];
     self.navigationItem.rightBarButtonItem.tintColor=[UIColor whiteColor];
     
+    /* Setup TextView */
+    self.textView.delegate = self;
     
     /* setup user */
     
@@ -41,20 +44,28 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) onCancelButton{
-    
-    
-}
-
 - (void) onTweetButton {
     NSLog(@"Text: %@",self.textView.text);
     [[TwitterClient sharedInstance] updateWithStatus:self.textView.text success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"success!");
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"fail to tweet, %@",error.description);
     }];
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (void)textViewDidChange:(UITextView *)textView{
+    NSInteger charCount = (140-_textView.text.length);
+    _charCountLabel.text = [NSString stringWithFormat:@"%ld",charCount];
+    if(charCount < 0){
+        _charCountLabel.textColor = [UIColor redColor];
+    }else if(charCount < 20){
+        _charCountLabel.textColor = [UIColor orangeColor];
+    }else{
+        _charCountLabel.textColor = [UIColor grayColor];
+    }
+}
+
 
 
 

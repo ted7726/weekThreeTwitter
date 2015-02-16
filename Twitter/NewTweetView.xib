@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewTweetView">
             <connections>
+                <outlet property="charCountLabel" destination="uh8-J5-KOg" id="CNO-iF-Csc"/>
                 <outlet property="nameLabel" destination="Dq4-tm-pfn" id="6py-oP-afp"/>
                 <outlet property="profileImage" destination="1bA-6W-Lkw" id="Sbe-ME-1p4"/>
                 <outlet property="textView" destination="qI0-aA-TEw" id="9fq-Hm-e51"/>
@@ -26,13 +27,13 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Michael Moran" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dq4-tm-pfn">
-                    <rect key="frame" x="89" y="13" width="98" height="17"/>
+                    <rect key="frame" x="89" y="13" width="97.5" height="17"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="@TheMichaleMoran" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFq-vb-NNA">
-                    <rect key="frame" x="89" y="33" width="112" height="15"/>
+                    <rect key="frame" x="89" y="33" width="111.5" height="14.5"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -46,6 +47,12 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uh8-J5-KOg">
+                    <rect key="frame" x="272.5" y="30.5" width="39.5" height="29"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -53,9 +60,11 @@
                 <constraint firstItem="Dq4-tm-pfn" firstAttribute="top" secondItem="1bA-6W-Lkw" secondAttribute="top" constant="5" id="3gL-j5-bXg"/>
                 <constraint firstItem="Dq4-tm-pfn" firstAttribute="leading" secondItem="XFq-vb-NNA" secondAttribute="leading" id="Dhc-cG-hIG"/>
                 <constraint firstItem="Dq4-tm-pfn" firstAttribute="leading" secondItem="1bA-6W-Lkw" secondAttribute="trailing" constant="8" id="Fp7-Xt-6y0"/>
+                <constraint firstItem="1bA-6W-Lkw" firstAttribute="centerY" secondItem="uh8-J5-KOg" secondAttribute="centerY" id="N8e-Wm-qcy"/>
                 <constraint firstItem="qI0-aA-TEw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="cyy-ot-CsO"/>
                 <constraint firstItem="XFq-vb-NNA" firstAttribute="top" secondItem="Dq4-tm-pfn" secondAttribute="bottom" constant="3" id="i4W-9J-QiE"/>
                 <constraint firstAttribute="trailing" secondItem="qI0-aA-TEw" secondAttribute="trailing" constant="8" id="nPj-GE-81Y"/>
+                <constraint firstAttribute="trailing" secondItem="uh8-J5-KOg" secondAttribute="trailing" constant="8" id="opw-nZ-vnd"/>
                 <constraint firstItem="1bA-6W-Lkw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="qnO-UM-mGY"/>
                 <constraint firstItem="qI0-aA-TEw" firstAttribute="top" secondItem="1bA-6W-Lkw" secondAttribute="bottom" constant="8" id="xm7-Jb-wiQ"/>
             </constraints>
