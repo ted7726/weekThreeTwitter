@@ -37,6 +37,7 @@
     self.nameLabel.text = User.currentUser.name;
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@",User.currentUser.screenName];
     [self.profileImage setImageWithURL:[NSURL URLWithString:[User.currentUser.profileName stringByReplacingOccurrencesOfString:@"normal" withString:@"bigger"]]];
+    
 }
 
 - (void)didReceiveMemoryWarning {

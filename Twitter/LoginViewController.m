@@ -8,7 +8,9 @@
 
 #import "LoginViewController.h"
 #import "TwitterClient.h"
-#import "TweetsViewController.h"
+#import "MainViewController.h"
+#import "UIImageView+AFNetworking.h"
+
 
 @interface LoginViewController ()
 
@@ -20,14 +22,11 @@
         if(user){
             // if successfully
             NSLog(@"Welcome to %@", user.name);
-            
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            self.navigationController.navigationBar.hidden = false;
+            [self goMainView];
             
         }else{
             // if error
             NSLog(@"login failed!");
-            
         }
     }];
     
@@ -35,7 +34,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    User *user = [User currentUser];
+    if (user!=nil){
+        [self.loginButton setTitle:[NSString stringWithFormat:@"Welcome %@", user.name] forState:UIControlStateNormal];
+        [self.profileImage setImageWithURL:[NSURL URLWithString:[user.profileName stringByReplacingOccurrencesOfString:@"normal" withString:@"bigger"]]];
+    }
+    
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+        [self performSelector:@selector(goMainView) withObject:nil afterDelay:1.0];
+}
+
+- (void) goMainView{
+    User *user = [User currentUser];
+    if (user!=nil){
+        
+        [self presentViewController:[[MainViewController alloc]init] animated:YES completion:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,6 +8,7 @@
 
 #import "User.h"
 #import "TwitterClient.h"
+
 @implementation User
 static User * _currentUser = nil;
 NSString * const UserDidLoginNotification =  @"UserDidLoginNotification";
@@ -21,8 +22,12 @@ NSString * const UserDidLogoutNotification = @"UserDidLogoutNotification";
         self.name = dictionary[@"name"];
         self.screenName = dictionary[@"screen_name"];
         self.profileName = dictionary[@"profile_image_url"];
+        self.bannerImage = dictionary[@"profile_background_image_url"];
         self.tagline = dictionary[@"description"];
-        
+        self.userId = dictionary[@"id_str"];
+        self.followersCount = [dictionary[@"followers_count"] stringValue];
+        self.followingCount = [dictionary[@"friends_count"] stringValue];
+        self.tweetsCount = [dictionary[@"statuses_count"] stringValue];
     }
 
     return self;

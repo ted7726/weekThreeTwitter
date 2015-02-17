@@ -17,6 +17,8 @@
 - (void) openURL:(NSURL *)url;
 
 - (void) homeTimelineWithParams:(NSDictionary *)params completion:(void (^)(NSArray *tweets, NSError *error))completion;
+- (void) mentionsTimelineWithParams:(NSDictionary *)params completion:(void (^)(NSArray *tweets, NSError *error))completion;
+- (void)timelineForUser:(NSString *)screenName completion:(void (^)(NSArray *, NSError *))completion;
 
 - (AFHTTPRequestOperation *)updateWithStatus:(NSString *)status
                                      success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
@@ -32,4 +34,6 @@
                                        favorited:(BOOL)favorited
                                          success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                          failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
 @end

@@ -6,6 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
             <connections>
+                <outlet property="loginButton" destination="880-V2-Oxw" id="XXY-SG-R6Y"/>
+                <outlet property="profileImage" destination="gd3-tz-Ljr" id="aS4-pQ-RyC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,8 +23,8 @@
                         <constraint firstAttribute="width" constant="80" id="iZu-1J-B9x"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="880-V2-Oxw">
-                    <rect key="frame" x="84" y="216" width="154" height="36"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="880-V2-Oxw">
+                    <rect key="frame" x="83" y="216" width="154" height="36"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="Login with Twitter">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -31,12 +33,21 @@
                         <action selector="onLogin:" destination="-1" eventType="touchUpInside" id="5ft-5m-ZlI"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gd3-tz-Ljr">
+                    <rect key="frame" x="124" y="135" width="73" height="73"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="73" id="fvB-6X-r97"/>
+                        <constraint firstAttribute="width" constant="73" id="glK-nN-xHN"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerY" secondItem="880-V2-Oxw" secondAttribute="centerY" constant="50" id="2lS-PJ-rMj"/>
                 <constraint firstAttribute="centerX" secondItem="880-V2-Oxw" secondAttribute="centerX" id="62M-Sh-4nk"/>
+                <constraint firstItem="880-V2-Oxw" firstAttribute="top" secondItem="gd3-tz-Ljr" secondAttribute="bottom" constant="8" id="BtG-az-OPU"/>
                 <constraint firstAttribute="centerY" secondItem="Xfz-9o-nkt" secondAttribute="centerY" constant="-10" id="Lne-55-iJW"/>
+                <constraint firstAttribute="centerX" secondItem="gd3-tz-Ljr" secondAttribute="centerX" id="oBl-9a-pbD"/>
                 <constraint firstAttribute="centerX" secondItem="Xfz-9o-nkt" secondAttribute="centerX" id="y5W-r6-JR3"/>
             </constraints>
             <point key="canvasLocation" x="413" y="380"/>

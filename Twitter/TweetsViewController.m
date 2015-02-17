@@ -14,7 +14,7 @@
 #import "TweetDetailView.h"
 #import "NewTweetView.h"
 #import "LoginViewController.h"
-@interface TweetsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface TweetsViewController () <UITableViewDelegate, UITableViewDataSource, TweetCellDelegate>
 
 @end
 
@@ -34,6 +34,8 @@
     self.tableView.delegate = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"TweetsCell" bundle:nil] forCellReuseIdentifier:@"TweetsCell"];
     
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
     /* setup refresh Control */
     
     self.refreshControl = [[UIRefreshControl alloc]init];
@@ -45,7 +47,9 @@
     
     
     /* setup navigation Buttons */
-    self.navigationItem.leftBarButtonItem =[[UIBarButtonItem alloc]initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onLogout)];
+    //self.navigationItem.leftBarButtonItem =[[UIBarButtonItem alloc]initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onLogout)];
+    
+    self.navigationItem.leftBarButtonItem =[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu.png"] style:UIBarButtonItemStylePlain target:self action:@selector(onMenuButton)];
     
 
     self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"write.png"] style:UIBarButtonItemStylePlain target:self action:@selector(onNewTweet)];
@@ -55,9 +59,14 @@
     
     /* setup navigation Bar */
     self.title = @"Home";
+    
+    
+    /* MenuViewController */
+    self.menuViewController = [[MenuViewController alloc]init];
 
 
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -74,6 +83,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TweetsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetsCell"];
+    
+    /* setup gesture on profile Image */
+    cell.imageView.userInteractionEnabled = YES;
+    cell.tweetCellDelegate = self;
+
+    
     cell.tweet = currentTweets[indexPath.row];
     
     if(currentTweets.count-2<indexPath.row){
@@ -93,6 +108,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TweetDetailView *vc = [[TweetDetailView alloc]init];
     Tweet *tweet = currentTweets[indexPath.row];
+    
     vc.tweet = tweet;
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -112,21 +128,15 @@
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return UITableViewAutomaticDimension;
 }
-    
 
-- (void)onLogout{
-    [User logout];
-    //[currentTweets removeAllObjects];
-    self.navigationController.navigationBar.hidden = true;
-    [self.navigationController pushViewController:[[LoginViewController alloc]init] animated:YES];
-    
-    
-}
 
 - (void) onNewTweet{
     
     NewTweetView *vc = [[NewTweetView alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+- (void) onMenuButton{
+    [self.delegate onMenuButton];
 }
 
 - (void) onRefresh{
@@ -138,5 +148,13 @@
     }];
     
 }
+
+- (void)tapOnCellProfileImage:(User *)user{
+    NSLog(@"tap on profile Image");
+    [self.delegate tapOnCellProfileImage:user];
+    
+}
+
+
 
 @end

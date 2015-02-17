@@ -23,13 +23,27 @@ PODS:
   - BDBOAuth1Manager (1.5.0):
     - AFNetworking/NSURLConnection (~> 2.5.0)
     - AFNetworking/NSURLSession (~> 2.5.0)
+  - DateTools (1.5.0)
+  - Mantle (1.5.4):
+    - Mantle/extobjc (= 1.5.4)
+  - Mantle/extobjc (1.5.4)
+  - MBProgressHUD (0.9)
+  - SVPullToRefresh (0.4.1)
 
 DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
+  - DateTools
+  - Mantle
+  - MBProgressHUD
+  - SVPullToRefresh
 
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   BDBOAuth1Manager: 274574557077abc873fc5688abe8b991e782749c
+  DateTools: 7df78f0c4719eb28cfd2d58a90fafd036e73156c
+  Mantle: d5fbaf30fbc58031223af13812c060e15934a1fe
+  MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
+  SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
 
 COCOAPODS: 0.36.0.beta.2

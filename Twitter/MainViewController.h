@@ -1,5 +1,5 @@
 //
-//  TabBarController.h
+//  MainViewController.h
 //  Twitter
 //
 //  Created by WeiSheng Su on 2/16/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TabBarController : UIViewController
+@interface MainViewController : UIViewController
 
 @end

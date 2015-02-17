@@ -74,8 +74,19 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
     }];
 }
 
-- (void)homeTimelineWithParams:(NSDictionary *)params completion:(void (^)(NSArray *, NSError *))completion{
+- (void)homeTimelineWithParams:(NSDictionary *)params
+                    completion:(void (^)(NSArray *, NSError *))completion{
     [self GET:@"1.1/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *tweets =[Tweet tweetsWithArray:responseObject];
+        completion(tweets,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(nil,error);
+    }];
+}
+
+- (void)mentionsTimelineWithParams:(NSDictionary *)params
+                    completion:(void (^)(NSArray *, NSError *))completion{
+    [self GET:@"1.1/statuses/mentions_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *tweets =[Tweet tweetsWithArray:responseObject];
         completion(tweets,nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -107,6 +118,27 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
     NSDictionary *parameters = @{@"id": tweetId};
     return [self POST:endPoint parameters:parameters success:success failure:failure];
 }
+
+- (AFHTTPRequestOperation *)timelineForUser:(NSString *)screenName
+                                    success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                    failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSDictionary *parameters = @{@"screen_name": screenName};
+    return [self POST:@"1.1/statuses/user_timeline.json" parameters:parameters success:success failure:failure];
+}
+
+
+
+- (void)timelineForUser:(NSString *)screenName completion:(void (^)(NSArray *, NSError *))completion{
+    NSDictionary *params = @{@"screen_name": screenName};
+    [self GET:@"1.1/statuses/user_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *tweets =[Tweet tweetsWithArray:responseObject];
+        completion(tweets,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(nil,error);
+    }];
+}
+
+
 
 
 

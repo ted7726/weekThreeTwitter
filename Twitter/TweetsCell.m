@@ -16,6 +16,9 @@
 - (void)awakeFromNib {
     // Initialization code
     self.tweetTextLabel.preferredMaxLayoutWidth = self.tweetTextLabel.frame.size.width;
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapProfileImage)];
+    [self.userProfile addGestureRecognizer:tapGestureRecognizer];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -86,6 +89,10 @@
     [self.favoriteButton setImage:[UIImage imageNamed:(_tweet.favorited ? @"favorite.png" : @"favorite_on.png")] forState:UIControlStateNormal];
     [_tweet toggleFavorite:nil completion:^(NSString *favoriteCount, NSError *error) {   
     }];
+}
+
+- (void)onTapProfileImage{
+    [self.tweetCellDelegate tapOnCellProfileImage:_tweet.user];
 }
 
 @end
